@@ -34,12 +34,31 @@ ngrok http 8000
 pip install -r requirements.txt
 ```
 
-### Запуск БД и миграции
+### Создание БД
+PostgreSQL
+```commandline
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+```
+* `--name some-postgres`: Дает имя контейнеру `some-postgres`.
+* `-e POSTGRES_PASSWORD=mysecretpassword`: Устанавливает пароль для пользователя postgres.
+* `-p 5432:5432`: Пробрасывает порт 5432 из контейнера на хост-машину.
+* `-d postgres`: Запускает контейнер в фоновом режиме и использует образ `postgres` из Docker Hub.
+
+>**Далее необходимо внести в .env следующие переменные:**
+```
+POSTGRES_PASSWORD=
+POSTGRES_USER=
+POSTGRES_DB=
+POSTGRES_PORT=
+POSTGRES_HOST=
+```
+
+
+### Инициализация БД и миграции
 1. Создание файла миграции
 ```commandline
 alembic revision --autogenerate -m "Database creation"
 ```
-
 2. Применение миграций
 ```commandline
 alembic upgrade head

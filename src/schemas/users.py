@@ -13,4 +13,3 @@ class UserSchema(BaseModel):
 class UserSchemaAdd(BaseModel):
     id: int
     name: str
-    search_interval: int

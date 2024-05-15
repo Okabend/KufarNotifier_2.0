@@ -7,7 +7,7 @@ from services.links import LinksService
 
 
 def ads_service():
-    return AdsService(AdsRepositoryd)
+    return AdsService(AdsRepository)
 
 
 def users_service():
