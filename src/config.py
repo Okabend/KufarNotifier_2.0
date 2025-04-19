@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DEBUG = True
+
 TG_TOKEN = os.getenv('TG_TOKEN')
 BASE_WEBHOOK_URL = os.getenv('NGROK_URL')
 TG_WEBHOOK_PATH = '/telegram_webhook/'
@@ -16,3 +17,9 @@ POSTGRES_HOST = os.getenv('POSTGRES_HOST')
 POSTGRES_PORT = os.getenv('POSTGRES_PORT')
 
 DATABASE_URL = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+
+REDIS_HOST = "127.0.0.1"
+REDIS_PORT = "6379"
+
+CELERY_BROKER = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"
+CELERY_BACKEND = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"

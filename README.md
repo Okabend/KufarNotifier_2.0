@@ -34,8 +34,8 @@ ngrok http 8000
 pip install -r requirements.txt
 ```
 
+# PostgreSQL
 ### Создание БД
-PostgreSQL
 ```commandline
 docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
 ```
@@ -63,11 +63,30 @@ alembic revision --autogenerate -m "Database creation"
 ```commandline
 alembic upgrade head
 ```
-
+# Redis
 ### Запуск Redis:
 ```commandline
 docker run -p 6379:6379 -d redis:5
 ```
+# Celery
+### Запуск воркера Celery
+```commandline
+celery -A src.tasks.task_queue worker -l info --pool=solo
+```
+
+### Запуск RedBeat (для периодических задач) Celery
+```commandline
+celery -A src.tasks.task_queue:celery beat -l info --scheduler redbeat.RedBeatScheduler
+
+```
+
+### Запуск Flower для Celery
+```commandline
+celery -A src.tasks.task_queue:celery flower
+```
+Адрес для админки flower: http://127.0.0.1:5555/
+
+# FastAPI
 ### Запуск приложения
 ```commandline
 python src/main.py

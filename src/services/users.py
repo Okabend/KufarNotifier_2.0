@@ -14,3 +14,15 @@ class UsersService:
     async def get_users(self):
         users = await self.users_repo.find_all()
         return users
+
+    async def get_user(self, user_id: int):
+        user = await self.users_repo.find_by_id(user_id)
+        return user
+
+    async def update_user_name(self, user_id: int, new_name: str):
+        user = await self.get_user(user_id)
+        if user:
+            user_data = {'name': new_name}
+            await self.users_repo.update_one(user_id, user_data)
+            return True
+        return False
